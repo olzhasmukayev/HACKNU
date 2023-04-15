@@ -9,6 +9,15 @@ export const getCourierServices = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+export const getCourierService = async (req, res) => {
+  try {
+    const courierServiceID = req.params.id;
+    const courierServices = await CourierService.findById(courierServiceID);
+    res.status(200).json(courierServices);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
 export const selectCourierService = async (req, res) => {
   try {
     const courierServiceID = req.params.id;
