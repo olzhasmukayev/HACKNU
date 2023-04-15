@@ -6,6 +6,13 @@ import TextField from "@mui/material/TextField";
 import leftImage from "../../assets/SMSAuthRight.png";
 
 const SMSAuth = () => {
+  const [IIN, setIIN] = React.useState("");
+
+  const onChangeHandler = event => {
+    setIIN(event.target.value);
+    console.log(IIN);
+ };
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -35,7 +42,9 @@ const SMSAuth = () => {
                 label="ИИН"
                 type="number"
                 size="small"
+                value={IIN}
                 placeholder="Введите ИИН..."
+                onChange={onChangeHandler}
                 InputLabelProps={{
                   shrink: true,
                 }}

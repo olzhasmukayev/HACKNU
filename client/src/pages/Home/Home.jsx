@@ -14,16 +14,40 @@ import { useState } from "react";
 
 const Home = memo(() => {
   const [post, setPost] = useState("");
-
-  const handleChange = (event) => {
-    setPost(event.target.value);
-  };
+  const handlePostChange = (event) => { setPost(event.target.value); console.log(post); };
 
   const [phone, setPhone] = React.useState("+77762282426");
+  const phoneChange = (newPhone) => { setPhone(newPhone); console.log(phone); };
 
-  const phoneChange = (newPhone) => {
-    setPhone(newPhone);
-  };
+  const [region, setRegion] = React.useState("");
+  const regionChange = (event) => { setRegion(event.target.value); console.log(region); };
+
+  const [city, setCity] = React.useState("");
+  const cityChange = (event) => { setCity(event.target.value); console.log(city); };
+
+  const [street, setStreet] = React.useState("");
+  const streetChange = (event) => { setStreet(event.target.value); console.log(street); };
+
+  const [homeNum, setHomeNum] = React.useState("");
+  const homeNumChange = (event) => { setHomeNum(event.target.value); console.log(homeNum); };
+
+  const [apartment, setApartment] = React.useState("");
+  const apartmentChange = (event) => { setApartment(event.target.value); console.log(apartment); };
+
+  const [podezd, setPodezd] = React.useState("");
+  const podezdChange = (event) => { setPodezd(event.target.value); console.log(podezd); };
+
+  const [floor, setFloor] = React.useState("");
+  const floorChange = (event) => { setFloor(event.target.value); console.log(floor); };
+
+  const [korpus, setKorpus] = React.useState("");
+  const korpusChange = (event) => { setKorpus(event.target.value); console.log(korpus); };
+
+  const [houseName, setHouseName] = React.useState("");
+  const houseNameChange = (event) => { setHouseName(event.target.value); console.log(houseName); };
+
+  const [additionalInfo, setAdditionalInfo] = React.useState("");
+  const additionalInfoChange = (event) => { setAdditionalInfo(event.target.value); console.log(additionalInfo); };
 
   return (
     <div className={styles.container}>
@@ -139,7 +163,7 @@ const Home = memo(() => {
                         shrink: true,
                       }}
                       label="Курьерская Служба"
-                      onChange={handleChange}
+                      onChange={handlePostChange}
                       sx={{
                         marginBottom: "10px",
                         width: "100%",
@@ -162,6 +186,8 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Область"
                       variant="outlined"
+                      value={region}
+                      onChange={regionChange}
                       multiline
                       sx={{
                         marginBottom: "10px",
@@ -171,6 +197,8 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Город"
                       variant="outlined"
+                      value={city}
+                      onChange={cityChange}
                       multiline
                       sx={{
                         marginBottom: "10px",
@@ -180,6 +208,8 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Улица"
                       variant="outlined"
+                      value={street}
+                      onChange={streetChange}
                       multiline
                       sx={{
                         marginBottom: "10px",
@@ -189,6 +219,8 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Номер дома"
                       variant="outlined"
+                      value={homeNum}
+                      onChange={homeNumChange}
                       multiline
                       sx={{
                         marginBottom: "10px",
@@ -197,6 +229,8 @@ const Home = memo(() => {
                     <TextField
                       id="outlined-basic"
                       label="Квартира"
+                      value={apartment}
+                      onChange={apartmentChange}
                       multiline
                       variant="outlined"
                       sx={{
@@ -209,6 +243,8 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Подъезд"
                       variant="outlined"
+                      value={podezd}
+                      onChange={podezdChange}
                       multiline
                       sx={{
                         marginBottom: "10px",
@@ -218,8 +254,10 @@ const Home = memo(() => {
                     <TextField
                       id="outlined-basic"
                       label="Этаж"
-                      multiline
                       variant="outlined"
+                      value={floor}
+                      onChange={floorChange}
+                      multiline
                       sx={{
                         marginBottom: "10px",
                       }}
@@ -227,8 +265,10 @@ const Home = memo(() => {
                     <TextField
                       id="outlined-basic"
                       label="Корпус"
-                      multiline
                       variant="outlined"
+                      multiline
+                      value={korpus}
+                      onChange={korpusChange}
                       sx={{
                         marginBottom: "10px",
                       }}
@@ -236,17 +276,21 @@ const Home = memo(() => {
                     <TextField
                       id="outlined-basic"
                       label="Наименование ЖК"
-                      multiline
                       variant="outlined"
+                      value={houseName}
+                      onChange={houseNameChange}
+                      multiline
                       sx={{
                         marginBottom: "10px",
                       }}
                     />
                     <TextField
                       id="outlined-basic"
-                      multiline
                       label="Дополнительная информация"
                       variant="outlined"
+                      value={additionalInfo}
+                      onChange={additionalInfoChange}
+                      multiline
                       sx={{
                         marginBottom: "10px",
                       }}
