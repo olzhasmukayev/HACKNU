@@ -35,7 +35,6 @@ const Home = memo(() => {
           <div className={styles.input}>
             <div className={styles.inputID}>
               <FormControl fullWidth>
-                
                 <div className={styles.labelUp}>
                   <p style={{ marginBottom: "15px" }}>Данные Получателя </p>
                 </div>

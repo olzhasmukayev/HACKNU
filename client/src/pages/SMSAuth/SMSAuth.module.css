@@ -13,8 +13,9 @@
   justify-content: space-evenly;
   flex-direction: column;
   height: 40vh;
-  width: 50vh;
-  background-color: #f8f9fe;
+  width: 45vh;
+  background-color: #ffffff;
+  border: 1px solid black;
   padding: 5%;
   border-radius: 15px;
 }
