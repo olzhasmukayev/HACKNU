@@ -19,12 +19,12 @@ export const getLocationCourier = async (req, res) => {
     const courierID = req.params.id;
     const latitude = req.params.one;
     const longitude = req.params.two;
-    console.log(courierID);
-    console.log(latitude);
-    console.log(longitude);
+    // console.log(courierID);
+    // console.log(latitude);
+    // console.log(longitude);
     const courier = await Courier.findById(courierID);
-    courier.latitude = latitude;
-    courier.longitude = longitude;
+    courier.currentLocation.latitude = latitude;
+    courier.currentLocation.longitude = longitude;
     const updatedCourier = await Courier.findByIdAndUpdate(courierID, courier, {
       new: true,
     });
