@@ -18,7 +18,7 @@ const onLoad = (polyline) => {
 };
 
 const path = [];
-
+const a = [];
 const options = {
   strokeColor: "#FF0000",
   strokeOpacity: 0.8,
