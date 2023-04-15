@@ -8,6 +8,7 @@ export const createRequest = async (req, res) => {
       middleName,
       requestName,
       requestAdress,
+      courierService,
     } = req.body;
     const newRequest = await new Request({
       requestID,
@@ -16,6 +17,7 @@ export const createRequest = async (req, res) => {
       middleName,
       requestName,
       requestAdress,
+      courierService,
       requestDate: new Date().toISOString(),
     });
     const savedRequest = await newRequest.save();
