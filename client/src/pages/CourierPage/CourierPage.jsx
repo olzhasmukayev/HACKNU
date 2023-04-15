@@ -2,10 +2,9 @@ import Running from "../../assets/running.gif";
 import { React, useEffect, useState } from "react";
 import { GoogleMap, LoadScript, Polyline, Marker } from "@react-google-maps/api";
 import { decode, encode } from "@googlemaps/polyline-codec";
-import styles from "./Courier.module.css";
+import styles from "./CourierPage.module.css";
 import useWindowSize from "../../hooks/useWindowSize";
 import axios from "axios";
-import TextField from "@mui/material/TextField";
 
 const computeRoutes = async (origin, destination) => {
   const API_KEY = "AIzaSyD-iUnnCzlz-eGSWYRJnfEvSA_lhg24CqU";
@@ -44,12 +43,31 @@ const MyComponent = () => {
   const [width, height] = useWindowSize();
 
   const [response, setResponse] = useState({});
+  const [courierId, setCourierId] = useState(0);
+  const [courierLat, setCourierLat] = useState(0);
+  const [courierLng, setCourierLng] = useState(0);
 
   let origin = "г. Астана, Кабанбай батыр 53";
   let destination = "г. Астана, Хан шатыр";
 
-  let courierLat = 51.1605;
-  let courierLng = 71.4705;
+  const getCoordinates = (position) => {
+    setCourierLat(position.coords.latitude);
+    setCourierLng(position.coords.longitude);
+  }
+
+  const sendCoordinates = async () => {
+    const response = await axios.post(
+      "http://localhost:5000/api/courier/" + courierId + "&" + courierLat + "&" + courierLng,
+    );
+  }
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getCoordinates);
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -59,6 +77,12 @@ const MyComponent = () => {
 
     fetchData();
   }, []);
+
+  
+  getLocation();
+
+  console.log("courierLat: ", courierLat);
+  console.log("courierLng: ", courierLng);
 
   console.log("response: ");
   console.log(response);
@@ -111,108 +135,17 @@ const MyComponent = () => {
     height: height + "px",
     width: width > 700 ? width / 2 + "px" : width + "px",
   };
-
-  const deliveryDate = new Date(Date.now() + +expTime.slice(0, -1) * 1000);
-  const deliveryNow = new Date(Date.now());
-
   return (
     <div className={styles.devider}>
       <div className={styles.leftInfo}>
         <div className={styles.mapInfo}>
           <div className={styles.wrap}>
-            <div
-              className={styles.docInfo}
-              style={{ marginBottom: "30px", marginTop: "30px" }}
-            >
+            <div className={styles.docInfo}>
               <p>Документы в Пути!</p>
             </div>
             <div className={styles.docsTime}>
-              <div className={styles.leftCura}>
-                <TextField
-                  id="outlined-basic"
-                  label={"Курьер"}
-                  variant="outlined"
-                  value={"Алмаз Шынбай"}
-                  multiline
-                  InputLabelProps={{
-                    readOnly: true,
-                  }}
-                  sx={{
-                    marginBottom: "10px",
-                  }}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label={"Примерное время в пути"}
-                  variant="outlined"
-                  value={(+expTime.slice(0, -1) / 60).toFixed() + " минут"}
-                  multiline
-                  InputLabelProps={{
-                    readOnly: true,
-                  }}
-                  sx={{
-                    marginBottom: "10px",
-                  }}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label={"Адрес Отправления"}
-                  variant="outlined"
-                  value={"Кабанбай батыра, 53"}
-                  multiline
-                  InputLabelProps={{
-                    readOnly: true,
-                  }}
-                  sx={{
-                    marginBottom: "10px",
-                  }}
-                />
-              </div>
-              <div className={styles.rightCura}>
-                <TextField
-                  id="outlined-basic"
-                  label={"Начало доставки"}
-                  variant="outlined"
-                  value={deliveryNow.toLocaleString("en-US", {
-                    hour12: false,
-                  })}
-                  multiline
-                  InputLabelProps={{
-                    readOnly: true,
-                  }}
-                  sx={{
-                    marginBottom: "10px",
-                  }}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label={"Конец доставки"}
-                  variant="outlined"
-                  value={deliveryDate.toLocaleString("en-US", {
-                    hour12: false,
-                  })}
-                  multiline
-                  InputLabelProps={{
-                    readOnly: true,
-                  }}
-                  sx={{
-                    marginBottom: "10px",
-                  }}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label={"Адрес Доставки"}
-                  variant="outlined"
-                  value={"Туран, 37"}
-                  multiline
-                  InputLabelProps={{
-                    readOnly: true,
-                  }}
-                  sx={{
-                    marginBottom: "10px",
-                  }}
-                />
-              </div>
+              <p>Примерное время ожидания</p>
+              <p>{(+expTime.slice(0, -1) / 60).toFixed() + " мин"}</p>
             </div>
             <div className={styles.docAnimate}>
               <img className={styles.curAnime} src={Running} alt="" />

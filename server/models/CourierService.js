@@ -33,11 +33,6 @@ const CourierServiceSchema = new mongoose.Schema({
   ],
   requestPool: [
     {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Request",
-        required: false,
-      },
       requestID: {
         type: String,
         required: true,

@@ -12,10 +12,35 @@ export const getCourierServices = async (req, res) => {
 export const selectCourierService = async (req, res) => {
   try {
     const courierServiceID = req.params.id;
-    const { requestID } = req.body;
-    const request = await Request.findById(requestID);
+    const { requestId } = req.body;
+    const {
+      requestID,
+      firstName,
+      lastName,
+      middleName,
+      requestName,
+      requestAdress,
+      requestDate,
+    } = await Request.findById(requestId);
+    // console.log({
+    //   requestID,
+    //   firstName,
+    //   lastName,
+    //   middleName,
+    //   requestAdress,
+    //   requestDate,
+    //   requestName,
+    // });
     const courierService = await CourierService.findById(courierServiceID);
-    courierService.requestPool.push(request);
+    courierService.requestPool.push({
+      requestID,
+      firstName,
+      lastName,
+      middleName,
+      requestName,
+      requestAdress,
+      requestDate,
+    });
     const updatedCourierService = await CourierService.findByIdAndUpdate(
       courierServiceID,
       courierService,
