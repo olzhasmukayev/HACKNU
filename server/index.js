@@ -10,6 +10,7 @@ import checkRoutes from "./routes/check.js";
 import courierServicesRoutes from "./routes/courierService.js";
 import requestRoutes from "./routes/request.js";
 import courierRoutes from "./routes/courier.js";
+import tsonRoutes from "./routes/tson.js";
 // import adminRoutes from "./routes/admin.js";
 // import teamRoutes from "./routes/team.js";
 // import { register } from "./controllers/auth.js";
@@ -40,6 +41,7 @@ app.use("/check", checkRoutes);
 app.use("/courierServices", courierServicesRoutes);
 app.use("/request", requestRoutes);
 app.use("/courier", courierRoutes);
+app.use("/tsons", tsonRoutes);
 
 // app.use("/admin", adminRoutes);
 // app.use("/team", teamRoutes);
