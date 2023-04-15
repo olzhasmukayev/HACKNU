@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import styles from "./SMSAuth.module.css";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
@@ -6,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import leftImage from "../../assets/SMSAuthRight.png";
 
 const SMSAuth = () => {
+  let { requestID } = useParams();
+
   const [IIN, setIIN] = React.useState("");
 
   const onChangeHandler = event => {
@@ -13,6 +16,7 @@ const SMSAuth = () => {
     console.log(IIN);
  };
 
+ if(requestID != undefined) {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -26,7 +30,7 @@ const SMSAuth = () => {
                 id="outlined-number"
                 label="Номер Документа"
                 type="number"
-                value="2312425"
+                value={requestID}
                 size="small"
                 InputLabelProps={{
                   shrink: true,
@@ -62,6 +66,11 @@ const SMSAuth = () => {
         </div> */}
     </div>
   );
+  } else {
+    <div className={styles.container}>
+      Льзя
+    </div>
+  }
 };
 
 export default SMSAuth;
