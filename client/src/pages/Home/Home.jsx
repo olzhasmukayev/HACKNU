@@ -12,11 +12,11 @@ import TextField from "@mui/material/TextField";
 import { MuiTelInput } from "mui-tel-input";
 import { useState } from "react";
 
-const Home = memo(() => {
+const Home = memo(({requestID, orderName, orderPlace, IIN, name, surname, phoneNum}) => {
   const [post, setPost] = useState("");
   const handlePostChange = (event) => { setPost(event.target.value); console.log(post); };
 
-  const [phone, setPhone] = React.useState("+77762282426");
+  const [phone, setPhone] = React.useState(phoneNum ? phoneNum : "");
   const phoneChange = (newPhone) => { setPhone(newPhone); console.log(phone); };
 
   const [region, setRegion] = React.useState("");
@@ -49,6 +49,24 @@ const Home = memo(() => {
   const [additionalInfo, setAdditionalInfo] = React.useState("");
   const additionalInfoChange = (event) => { setAdditionalInfo(event.target.value); console.log(additionalInfo); };
 
+  const [pred, setPred] = React.useState(false);
+  const predChange = (event) => { setPred(!pred); console.log(pred); };
+
+  const [predIIN, setPredIIN] = React.useState("");
+  const predIINChange = (event) => { setPredIIN(event.target.value); console.log(predIIN); };
+
+  const [check1, setCheck1] = React.useState(false);
+  const check1Change = (event) => { setCheck1(!check1); console.log(check1)};
+
+  const [check2, setCheck2] = React.useState(false);
+  const check2Change = (event) => { setCheck2(!check2); console.log(check2)};
+
+  const handleSubmit = (event) => {
+    if (!(check1 && check2)) return;
+
+    console.log("AAAA");
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -68,8 +86,7 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Заказ №"
                       variant="outlined"
-                      value="2312425"
-                      multiline
+                      value={requestID ? requestID : ""}
                       InputLabelProps={{
                         readOnly: true,
                       }}
@@ -82,7 +99,7 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Наименование услуги"
                       variant="outlined"
-                      value="Выдача копий документов регистрационного дела, заверенных регистрирующим органом, включая план (схемы объектов недвижимости"
+                      value={orderName ? orderName : ""}
                       multiline
                       InputLabelProps={{
                         readOnly: true,
@@ -96,7 +113,7 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Отделение"
                       variant="outlined"
-                      value="Отдел №1 города Петропавловск по обслуживанию населения филиала некоммерческого акционерного общества «Государственная корпорация «Правительство для граждан» по Северо-Казахстанской области"
+                      value={orderPlace ? orderPlace : ""}
                       multiline
                       InputLabelProps={{
                         readOnly: true,
@@ -115,8 +132,7 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="ИИН"
                       variant="outlined"
-                      value="031023440011"
-                      multiline
+                      value={IIN ? IIN : ""}
                       InputLabelProps={{
                         readOnly: true,
                       }}
@@ -129,8 +145,7 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Имя"
                       variant="outlined"
-                      value="Еламан"
-                      multiline
+                      value={name ? name : ""}
                       InputLabelProps={{
                         readOnly: true,
                       }}
@@ -143,8 +158,7 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Фамилия"
                       variant="outlined"
-                      value="Фазыл"
-                      multiline
+                      value={surname ? surname : ""}
                       InputLabelProps={{
                         readOnly: true,
                       }}
@@ -311,20 +325,70 @@ const Home = memo(() => {
                 </div>
                 <div>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="Вы Представитель?"
+                    control={<Checkbox checked={pred} onChange={predChange} />}
+                    label="Представитель"
                     sx={{
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   />
+                  <br></br>
+                  {pred ? <TextField
+                    id="outlined-basic"
+                    label="ИИН Представителя"
+                    variant="outlined"
+                    value={predIIN}
+                    onChange={predIINChange}
+                    sx={{
+                      marginBottom: "10px",
+                      width: "100%",
+                    }}
+                  /> : <div></div>}
+                </div>
+                <div>
+                  <br></br>
+                  <Box
+                    sx={{
+                      display: "flex",
+                    }}
+                  >
+                    <FormControlLabel
+                      control={<Checkbox checked={check1} onChange={check1Change} />}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    />
+                    <p>- Я принимаю условия <a target="_blank" href="https://egov.kz/cms/kk">публичного договора-оферты</a></p>
+                  </Box>
+                  <br></br>
+                  <Box
+                    sx={{
+                      display: "flex",
+                    }}
+                  >
+                    <FormControlLabel
+                      control={<Checkbox checked={check2} onChange={check2Change} />}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    />
+                    <p>- Я ознакомлен и согласен с <a target="_blank" href="https://egov.kz/cms/kk">условиями политики конфиденциальности и персональных данных</a></p>
+                  </Box>
+                  <br></br>
                 </div>
               </FormControl>
             </div>
           </div>
           <div className={styles.button}>
-            <Button variant="contained" sx={{ backgroundColor: "#2E71FC" }}>
+            <Button variant="contained" 
+                    sx={{ backgroundColor: "#2E71FC" }}
+                    onClick={handleSubmit}
+            >
               Продолжить
             </Button>
           </div>
