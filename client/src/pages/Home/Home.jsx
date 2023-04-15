@@ -35,35 +35,41 @@ const Home = memo(() => {
           <div className={styles.input}>
             <div className={styles.inputID}>
               <FormControl fullWidth>
-                <div className={styles.labelUp}>
-                  <p style={{ marginBottom: "15px" }}>Данные Получателя </p>
-                </div>
                 <div>
-                  <TextField
-                    id="outlined-basic"
-                    label="Область"
-                    variant="outlined"
-                    multiline
-                    sx={{
-                      marginBottom: "10px",
-                      width: "100%",
-                    }}
-                  />
-                </div>
-                <div className={styles.labelUp}>
-                  <p style={{ marginBottom: "15px" }}>Данные Получателя </p>
-                </div>
-                <div>
+                  <div className={styles.labelUp}>
+                    <p style={{ marginBottom: "15px" }}>Данные Заказа </p>
+                  </div>
                   <div>
-                    <MuiTelInput
-                      value={phone}
-                      onChange={phoneChange}
-                      sx={{ width: "100%", marginBottom: "10px" }}
+                    <TextField
+                      disabled
+                      id="outlined-basic"
+                      label="Заказ №"
+                      variant="outlined"
+                      value="2312425"
+                      multiline
+                      sx={{
+                        marginBottom: "10px",
+                        width: "100%",
+                      }}
                     />
                     <TextField
+                      disabled
                       id="outlined-basic"
-                      label="Область"
+                      label="Наименование услуги"
                       variant="outlined"
+                      value="Выдача копий документов регистрационного дела, заверенных регистрирующим органом, включая план (схемы объектов недвижимости"
+                      multiline
+                      sx={{
+                        marginBottom: "10px",
+                        width: "100%",
+                      }}
+                    />
+                    <TextField
+                      disabled
+                      id="outlined-basic"
+                      label="Отделение"
+                      variant="outlined"
+                      value="Отдел №1 города Петропавловск по обслуживанию населения филиала некоммерческого акционерного общества «Государственная корпорация «Правительство для граждан» по Северо-Казахстанской области"
                       multiline
                       sx={{
                         marginBottom: "10px",
@@ -71,7 +77,55 @@ const Home = memo(() => {
                       }}
                     />
                   </div>
+                  <div>
+                    <div className={styles.labelUp}>
+                      <p style={{ marginBottom: "15px" }}>Данные Получателя</p>
+                    </div>
+                    <TextField
+                      disabled
+                      id="outlined-basic"
+                      label="ИИН"
+                      variant="outlined"
+                      value="031023440011"
+                      multiline
+                      sx={{
+                        marginBottom: "10px",
+                        width: "100%",
+                      }}
+                    />
+                    <TextField
+                      disabled
+                      id="outlined-basic"
+                      label="Имя"
+                      variant="outlined"
+                      value="Еламан"
+                      multiline
+                      sx={{
+                        marginBottom: "10px",
+                        width: "100%",
+                      }}
+                    />
+                    <TextField
+                      disabled
+                      id="outlined-basic"
+                      label="Фамилия"
+                      variant="outlined"
+                      value="Фазыл"
+                      multiline
+                      sx={{
+                        marginBottom: "10px",
+                        width: "100%",
+                      }}
+                    />
+                    <MuiTelInput
+                      label="Номер телефона"
+                      value={phone}
+                      onChange={phoneChange}
+                      sx={{ width: "100%", marginBottom: "10px" }}
+                    />
+                  </div>
                 </div>
+                <br></br>
                 <FormControl fullWidth>
                   <div>
                     <InputLabel id="demo-simple-select-label">
@@ -95,6 +149,7 @@ const Home = memo(() => {
                     </Select>
                   </div>
                 </FormControl>
+                <br></br>
                 <div className={styles.labelUp}>
                   <p style={{ marginBottom: "15px" }}>Адрес Доставки </p>
                 </div>
