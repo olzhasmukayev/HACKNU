@@ -3,6 +3,7 @@ import styles from "./SMSAuth.module.css";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import leftImage from "../../assets/SMSAuthRight.png";
 
 const SMSAuth = () => {
   return (
@@ -48,6 +49,9 @@ const SMSAuth = () => {
           </div>
         </div>
       </div>
+      {/* <div className={styles.leftImage}>
+          <img src={leftImage} alt="" />
+        </div> */}
     </div>
   );
 };

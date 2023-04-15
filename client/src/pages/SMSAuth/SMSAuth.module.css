@@ -82,3 +82,10 @@
   justify-content: center;
   align-items: center;
 }
+
+.leftImage {
+  position: absolute;
+  left: 0;
+  height: 30%;
+  width: 40%;
+}
