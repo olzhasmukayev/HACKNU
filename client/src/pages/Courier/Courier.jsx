@@ -18,7 +18,7 @@ const onLoad = (polyline) => {
 };
 
 const path = [];
-const a = [];
+
 const options = {
   strokeColor: "#FF0000",
   strokeOpacity: 0.8,
@@ -33,30 +33,33 @@ const options = {
   zIndex: 1,
 };
 
-const mapContainerStyle = {
-  height: "400px",
-  width: "600px",
-};
+let sumLat = 0;
+let sumLng = 0;
+
+for (let i = 0; i < decoded.length; i++) {
+  console.log(decoded[i][0], decoded[i][1]);
+  path.push({ lat: decoded[i][0], lng: decoded[i][1] });
+  sumLat += decoded[i][0];
+  sumLng += decoded[i][1];
+}
+
+center.lat = sumLat / decoded.length;
+center.lng = sumLng / decoded.length;
+
+let zoom = 13;
 
 const MyComponent = () => {
   const [width, height] = useWindowSize();
 
-  let sumLat = 0;
-  let sumLng = 0;
-
-  for (let i = 0; i < decoded.length; i++) {
-    path.push({ lat: decoded[i][0], lng: decoded[i][1] });
-    sumLat += decoded[i][0];
-    sumLng += decoded[i][1];
-  }
-
-  center.lat = sumLat / decoded.length;
-  center.lng = sumLng / decoded.length;
-
-  let zoom = 12;
-
+  const mapContainerStyle = {
+    height: height + "px",
+    width: width / 2 + "px",
+  };
   return (
-    <div className={styles.container} style={{ width: "100%", height: "100%" }}>
+    <div
+      className={styles.container}
+      style={{ width: "100%", height: "100%", marginLeft: "25%" }}
+    >
       <LoadScript googleMapsApiKey="AIzaSyD-iUnnCzlz-eGSWYRJnfEvSA_lhg24CqU">
         <GoogleMap
           id="marker-example"
@@ -65,7 +68,6 @@ const MyComponent = () => {
           center={center}
         >
           <Polyline
-            loop={false}
             onLoad={onLoad}
             geodesic={true}
             path={path}
