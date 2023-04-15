@@ -26,6 +26,7 @@ const SMSAuth = () => {
                 }}
                 sx={{
                   marginBottom: "20px",
+                  input: { color: "red" },
                 }}
               />
               <TextField
@@ -41,7 +42,9 @@ const SMSAuth = () => {
             </div>
           </div>
           <div className={styles.button}>
-            <Button variant="contained">Продолжить</Button>
+            <Button variant="contained" sx={{ backgroundColor: "#2E71FC" }}>
+              Продолжить
+            </Button>
           </div>
         </div>
       </div>

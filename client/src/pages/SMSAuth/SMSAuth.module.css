@@ -15,9 +15,23 @@
   height: 40vh;
   width: 45vh;
   background-color: #ffffff;
-  border: 1px solid black;
   padding: 5%;
-  border-radius: 15px;
+  border-radius: 0.75rem;
+}
+
+@media only screen and (min-width: 700px) {
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    border: 1px solid black;
+    height: 40vh;
+    width: 45vh;
+    background-color: #ffffff;
+    padding: 5%;
+    border-radius: 0.75rem;
+  }
 }
 
 .info {
