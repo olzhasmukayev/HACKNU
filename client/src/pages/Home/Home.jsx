@@ -35,29 +35,7 @@ const Home = memo(() => {
           <div className={styles.input}>
             <div className={styles.inputID}>
               <FormControl fullWidth>
-                <div>
-                  <div>
-                    <InputLabel id="demo-simple-select-label">
-                      Курьерская Служба
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={post}
-                      label="Курьерская Служба"
-                      onChange={handleChange}
-                      sx={{
-                        marginBottom: "10px",
-                        width: "100%",
-                      }}
-                    >
-                      <MenuItem value={10}>Kaspi Доставка</MenuItem>
-                      <MenuItem value={20}>Pony Express</MenuItem>
-                      <MenuItem value={30}>Exline</MenuItem>
-                      <MenuItem value={40}>СДЭК</MenuItem>
-                    </Select>
-                  </div>
-                </div>
+                
                 <div className={styles.labelUp}>
                   <p style={{ marginBottom: "15px" }}>Данные Получателя </p>
                 </div>
@@ -95,6 +73,29 @@ const Home = memo(() => {
                     />
                   </div>
                 </div>
+                <FormControl fullWidth>
+                  <div>
+                    <InputLabel id="demo-simple-select-label">
+                      Курьерская Служба
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={post}
+                      label="Курьерская Служба"
+                      onChange={handleChange}
+                      sx={{
+                        marginBottom: "10px",
+                        width: "100%",
+                      }}
+                    >
+                      <MenuItem value={10}>Kaspi Доставка</MenuItem>
+                      <MenuItem value={20}>Pony Express</MenuItem>
+                      <MenuItem value={30}>Exline</MenuItem>
+                      <MenuItem value={40}>СДЭК</MenuItem>
+                    </Select>
+                  </div>
+                </FormControl>
                 <div className={styles.labelUp}>
                   <p style={{ marginBottom: "15px" }}>Адрес Доставки </p>
                 </div>
