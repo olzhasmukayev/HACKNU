@@ -15,26 +15,41 @@ const handleSubmit = async (requestID, iin) => {
   let response4 = null;
   let response5 = null;
   response1 = await axios.get(
-    "http://localhost:6001/check/iin/" + requestID + "&" + iin
+    "http://localhost:6001/check/iin/" + requestID + "&" + iin,
+    {
+      signal: AbortSignal.timeout(5000), //Aborts request after 5 seconds
+    }
   );
   if (response1) return response1;
   console.log(1);
   response2 = await axios.get(
-    "http://localhost:6001/check/iin/" + requestID + "&" + iin
+    "http://localhost:6001/check/iin/" + requestID + "&" + iin,
+    {
+      signal: AbortSignal.timeout(5000), //Aborts request after 5 seconds
+    }
   );
   if (response2) return response2;
   console.log(1);
   response3 = await axios.get(
-    "http://localhost:6001/check/iin/" + requestID + "&" + iin
+    "http://localhost:6001/check/iin/" + requestID + "&" + iin,
+    {
+      signal: AbortSignal.timeout(5000), //Aborts request after 5 seconds
+    }
   );
   console.log(1);
   if (response3) return response3;
   response4 = await axios.get(
-    "http://localhost:6001/check/iin/" + requestID + "&" + iin
+    "http://localhost:6001/check/iin/" + requestID + "&" + iin,
+    {
+      signal: AbortSignal.timeout(5000), //Aborts request after 5 seconds
+    }
   );
   if (response4) return response4;
   response5 = await axios.get(
-    "http://localhost:6001/check/iin/" + requestID + "&" + iin
+    "http://localhost:6001/check/iin/" + requestID + "&" + iin,
+    {
+      signal: AbortSignal.timeout(5000), //Aborts request after 5 seconds
+    }
   );
   if (response5) return response5;
   console.log(1);
@@ -51,43 +66,25 @@ const handleSubmit = async (requestID, iin) => {
 
 const handleCheckSubmit = async (requestID, iin) => {
   let response1 = null;
-  let response2 = null;
-  let response3 = null;
-  let response4 = null;
-  let response5 = null;
+
+  setTimeout(async () => {
+    response1 = await axios.get(
+      "http://localhost:6001/check/data/" + requestID + "&" + iin,
+      {
+        signal: AbortSignal.timeout(5000), //Aborts request after 5 seconds
+      }
+    );
+  }, 100);
+
   response1 = await axios.get(
-    "http://localhost:6001/check/data/" + requestID + "&" + iin
+    "http://localhost:6001/check/data/" + requestID + "&" + iin,
+    {
+      signal: AbortSignal.timeout(5000), //Aborts request after 5 seconds
+    }
   );
+
   if (response1) return response1;
-  console.log(1);
-  response2 = await axios.get(
-    "http://localhost:6001/check/data/" + requestID + "&" + iin
-  );
-  if (response2) return response2;
-  console.log(1);
-  response3 = await axios.get(
-    "http://localhost:6001/check/data/" + requestID + "&" + iin
-  );
-  console.log(1);
-  if (response3) return response3;
-  response4 = await axios.get(
-    "http://localhost:6001/check/data/" + requestID + "&" + iin
-  );
-  if (response4) return response4;
-  response5 = await axios.get(
-    "http://localhost:6001/check/data/" + requestID + "&" + iin
-  );
-  if (response5) return response5;
-  console.log(1);
-  if (response1 || response2 || response3 || response4 || response5) {
-    if (response1) return response1;
-    if (response2) return response2;
-    if (response3) return response3;
-    if (response4) return response4;
-    if (response5) return response5;
-  } else {
-    return handleSubmit(requestID, iin);
-  }
+  return response1;
 };
 
 const SMSAuth = () => {
@@ -107,19 +104,21 @@ const SMSAuth = () => {
       console.log(123123);
       const resp = await handleCheckSubmit(requestID, IIN);
       console.log(resp);
-      navigate({
-        pathname: "/Home",
-        search: createSearchParams({
-          IIN: IIN,
-          requestID: requestID,
-          orderName: resp.data.tsonData.serviceType.nameRu,
-          orderPlace: resp.data.tsonData.organization.nameRu,
-          organizationCode: resp.data.tsonData.organization.code,
-          name: resp.data.firstName,
-          surname: resp.data.lastName,
-          phoneNum: resp.data.phoneNumber,
-        }).toString(),
-      });
+      if (resp != null) {
+        navigate({
+          pathname: "/Home",
+          search: createSearchParams({
+            IIN: IIN,
+            requestID: requestID,
+            orderName: resp.data.tsonData.serviceType.nameRu,
+            orderPlace: resp.data.tsonData.organization.nameRu,
+            organizationCode: resp.data.tsonData.organization.code,
+            name: resp.data.firstName,
+            surname: resp.data.lastName,
+            phoneNum: resp.data.phoneNumber,
+          }).toString(),
+        });
+      }
     }
   };
 

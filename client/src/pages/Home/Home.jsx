@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import styles from "./Home.module.css";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -11,7 +11,8 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { MuiTelInput } from "mui-tel-input";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate, createSearchParams } from "react-router-dom";
+import axios from "axios";
 
 const Home = memo(() => {
   const [searchParams] = useSearchParams();
@@ -120,11 +121,46 @@ const Home = memo(() => {
     console.log(check2);
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     if (!(check1 && check2)) return;
-
-    console.log("AAAA");
+    
+    navigate({
+      pathname: "/Payment",
+      search: createSearchParams({
+        IIN: IIN,
+        requestID: requestID,
+        orderName: orderName,
+        orderPlace: orderPlace,
+        organizationCode: organizationCode,
+        name: name,
+        surname: surname,
+        phoneNum: phoneNum,
+        post: post,
+        region: region,
+        city: city,
+        street: street,
+        homeNum: homeNum,
+        apartment: apartment,
+        podezd: podezd,
+        floor: floor,
+        korpus: korpus,
+        houseName: houseName,
+        additionalInfo: additionalInfo,
+        pred: pred,
+        predIIN: predIIN,
+      }).toString(),
+    });
   };
+
+  const getCourierServices = async () => {
+    const response = await axios.get("http://localhost:6001/courierServices/");
+    console.log(response.data);
+
+    return response.data;
+  }
+
 
   return (
     <div className={styles.container}>
@@ -256,10 +292,10 @@ const Home = memo(() => {
                         width: "100%",
                       }}
                     >
-                      <MenuItem value={10}>Kaspi Доставка</MenuItem>
-                      <MenuItem value={20}>Pony Express</MenuItem>
-                      <MenuItem value={30}>Exline</MenuItem>
-                      <MenuItem value={40}>СДЭК</MenuItem>
+                      <MenuItem value={"643ad8ec8fcf699e2f1f4607"}>Kaspi Доставка</MenuItem>
+                      <MenuItem value={"643ad9048fcf699e2f1f460a"}>Pony Express</MenuItem>
+                      <MenuItem value={"643ad9148fcf699e2f1f460d"}>Exline</MenuItem>
+                      <MenuItem value={"643ad9298fcf699e2f1f4610"}>СДЭК</MenuItem>
                     </Select>
                   </div>
                 </FormControl>
