@@ -65,36 +65,42 @@ const Home = memo(() => {
                   </div>
                   <div>
                     <TextField
-                      disabled
                       id="outlined-basic"
                       label="Заказ №"
                       variant="outlined"
                       value="2312425"
                       multiline
+                      InputLabelProps={{
+                        readOnly: true,
+                      }}
                       sx={{
                         marginBottom: "10px",
                         width: "100%",
                       }}
                     />
                     <TextField
-                      disabled
                       id="outlined-basic"
                       label="Наименование услуги"
                       variant="outlined"
                       value="Выдача копий документов регистрационного дела, заверенных регистрирующим органом, включая план (схемы объектов недвижимости"
                       multiline
+                      InputLabelProps={{
+                        readOnly: true,
+                      }}
                       sx={{
                         marginBottom: "10px",
                         width: "100%",
                       }}
                     />
                     <TextField
-                      disabled
                       id="outlined-basic"
                       label="Отделение"
                       variant="outlined"
                       value="Отдел №1 города Петропавловск по обслуживанию населения филиала некоммерческого акционерного общества «Государственная корпорация «Правительство для граждан» по Северо-Казахстанской области"
                       multiline
+                      InputLabelProps={{
+                        readOnly: true,
+                      }}
                       sx={{
                         marginBottom: "10px",
                         width: "100%",
@@ -106,36 +112,42 @@ const Home = memo(() => {
                       <p style={{ marginBottom: "15px" }}>Данные Получателя</p>
                     </div>
                     <TextField
-                      disabled
                       id="outlined-basic"
                       label="ИИН"
                       variant="outlined"
                       value="031023440011"
                       multiline
+                      InputLabelProps={{
+                        readOnly: true,
+                      }}
                       sx={{
                         marginBottom: "10px",
                         width: "100%",
                       }}
                     />
                     <TextField
-                      disabled
                       id="outlined-basic"
                       label="Имя"
                       variant="outlined"
                       value="Еламан"
                       multiline
+                      InputLabelProps={{
+                        readOnly: true,
+                      }}
                       sx={{
                         marginBottom: "10px",
                         width: "100%",
                       }}
                     />
                     <TextField
-                      disabled
                       id="outlined-basic"
                       label="Фамилия"
                       variant="outlined"
                       value="Фазыл"
                       multiline
+                      InputLabelProps={{
+                        readOnly: true,
+                      }}
                       sx={{
                         marginBottom: "10px",
                         width: "100%",

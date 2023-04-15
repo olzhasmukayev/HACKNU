@@ -23,7 +23,6 @@ const SMSAuth = () => {
           <div className={styles.input}>
             <div className={styles.inputID}>
               <TextField
-                disabled
                 id="outlined-number"
                 label="Номер Документа"
                 type="number"
@@ -31,10 +30,10 @@ const SMSAuth = () => {
                 size="small"
                 InputLabelProps={{
                   shrink: true,
+                  readOnly: true,
                 }}
                 sx={{
                   marginBottom: "20px",
-                  input: { color: "red" },
                 }}
               />
               <TextField
