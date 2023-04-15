@@ -41,9 +41,9 @@ const RequestSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  CourierService: {
+  courierService: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Courier",
+    ref: "CourierService",
     required: true,
   },
 });
