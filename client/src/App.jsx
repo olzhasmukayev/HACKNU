@@ -11,7 +11,9 @@ const App = () => {
         <Route path="/Courier" element={<Courier />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Payment" element={<Payment />} />
-        <Route path="/SMSAuth" element={<SMSAuth />} />
+        <Route path="/SMSAuth" element={<SMSAuth />}>
+          <Route path=":requestID" element={<SMSAuth />} />
+        </Route>
       </Routes>
     </>
   );

@@ -5,6 +5,7 @@ import { decode, encode } from "@googlemaps/polyline-codec";
 import styles from "./Courier.module.css";
 import useWindowSize from "../../hooks/useWindowSize";
 import axios from "axios";
+import TextField from "@mui/material/TextField";
 
 const computeRoutes = async (origin, destination) => {
   const API_KEY = "AIzaSyD-iUnnCzlz-eGSWYRJnfEvSA_lhg24CqU";
@@ -107,17 +108,108 @@ const MyComponent = () => {
     height: height + "px",
     width: width > 700 ? width / 2 + "px" : width + "px",
   };
+
+  const deliveryDate = new Date(Date.now() + +expTime.slice(0, -1) * 1000);
+  const deliveryNow = new Date(Date.now());
+
   return (
     <div className={styles.devider}>
       <div className={styles.leftInfo}>
         <div className={styles.mapInfo}>
           <div className={styles.wrap}>
-            <div className={styles.docInfo}>
+            <div
+              className={styles.docInfo}
+              style={{ marginBottom: "30px", marginTop: "30px" }}
+            >
               <p>Документы в Пути!</p>
             </div>
             <div className={styles.docsTime}>
-              <p>Примерное время ожидания</p>
-              <p>{(+expTime.slice(0, -1) / 60).toFixed() + " мин"}</p>
+              <div className={styles.leftCura}>
+                <TextField
+                  id="outlined-basic"
+                  label={"Курьер"}
+                  variant="outlined"
+                  value={"Алмаз Шынбай"}
+                  multiline
+                  InputLabelProps={{
+                    readOnly: true,
+                  }}
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label={"Примерное время в пути"}
+                  variant="outlined"
+                  value={(+expTime.slice(0, -1) / 60).toFixed() + " минут"}
+                  multiline
+                  InputLabelProps={{
+                    readOnly: true,
+                  }}
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label={"Адрес Отправления"}
+                  variant="outlined"
+                  value={"Кабанбай батыра, 53"}
+                  multiline
+                  InputLabelProps={{
+                    readOnly: true,
+                  }}
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                />
+              </div>
+              <div className={styles.rightCura}>
+                <TextField
+                  id="outlined-basic"
+                  label={"Начало доставки"}
+                  variant="outlined"
+                  value={deliveryNow.toLocaleString("en-US", {
+                    hour12: false,
+                  })}
+                  multiline
+                  InputLabelProps={{
+                    readOnly: true,
+                  }}
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label={"Конец доставки"}
+                  variant="outlined"
+                  value={deliveryDate.toLocaleString("en-US", {
+                    hour12: false,
+                  })}
+                  multiline
+                  InputLabelProps={{
+                    readOnly: true,
+                  }}
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label={"Адрес Доставки"}
+                  variant="outlined"
+                  value={"Туран, 37"}
+                  multiline
+                  InputLabelProps={{
+                    readOnly: true,
+                  }}
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                />
+              </div>
             </div>
             <div className={styles.docAnimate}>
               <img className={styles.curAnime} src={Running} alt="" />

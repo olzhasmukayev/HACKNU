@@ -22,12 +22,11 @@
 .mapInfo {
   font-family: "Open Sans", sans-serif;
   width: 80%;
-  height: 80%;
-  border: 0.5px solid black;
+  height: 60%;
   border-radius: 9px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 700px) {
@@ -54,15 +53,17 @@
 
 .docInfo {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: "Open Sans", sans-serif;
 }
 
 .docsTime {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   font-family: "Open Sans", sans-serif;
   font-size: 1.2rem;
@@ -70,20 +71,43 @@
 
 .docAnimate {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   font-family: "Open Sans", sans-serif;
   font-size: 1.2rem;
 }
 
 .wrap {
-  height: 80%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .curAnime {
   width: 30%;
   height: 100%;
+}
+
+.docsTime {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftCura {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1%;
+}
+
+.rightCura {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

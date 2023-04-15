@@ -11,67 +11,128 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { MuiTelInput } from "mui-tel-input";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-const Home = memo(({requestID, orderName, orderPlace, IIN, name, surname, phoneNum}) => {
+const Home = memo(() => {
+  const [searchParams] = useSearchParams();
+  const requestID = searchParams.get("requestID");
+  const orderName = searchParams.get("orderName");
+  const IIN = searchParams.get("IIN");
+  const name = searchParams.get("name");
+  const surname = searchParams.get("surname");
+  const phoneNum = "+" + searchParams.get("phoneNum");
+  const orderPlace = searchParams.get("orderPlace");
+  const organizationCode = searchParams.get("organizationCode");
+
   const [post, setPost] = useState("");
-  const handlePostChange = (event) => { setPost(event.target.value); console.log(post); };
+  const handlePostChange = (event) => {
+    setPost(event.target.value);
+    console.log(post);
+  };
 
   const [phone, setPhone] = React.useState(phoneNum ? phoneNum : "");
-  const phoneChange = (newPhone) => { setPhone(newPhone); console.log(phone); };
+  const phoneChange = (newPhone) => {
+    setPhone(newPhone);
+    console.log(phone);
+  };
 
   const [region, setRegion] = React.useState("");
-  const regionChange = (event) => { setRegion(event.target.value); console.log(region); };
+  const regionChange = (event) => {
+    setRegion(event.target.value);
+    console.log(region);
+  };
 
   const [city, setCity] = React.useState("");
-  const cityChange = (event) => { setCity(event.target.value); console.log(city); };
+  const cityChange = (event) => {
+    setCity(event.target.value);
+    console.log(city);
+  };
 
   const [street, setStreet] = React.useState("");
-  const streetChange = (event) => { setStreet(event.target.value); console.log(street); };
+  const streetChange = (event) => {
+    setStreet(event.target.value);
+    console.log(street);
+  };
 
   const [homeNum, setHomeNum] = React.useState("");
-  const homeNumChange = (event) => { setHomeNum(event.target.value); console.log(homeNum); };
+  const homeNumChange = (event) => {
+    setHomeNum(event.target.value);
+    console.log(homeNum);
+  };
 
   const [apartment, setApartment] = React.useState("");
-  const apartmentChange = (event) => { setApartment(event.target.value); console.log(apartment); };
+  const apartmentChange = (event) => {
+    setApartment(event.target.value);
+    console.log(apartment);
+  };
 
   const [podezd, setPodezd] = React.useState("");
-  const podezdChange = (event) => { setPodezd(event.target.value); console.log(podezd); };
+  const podezdChange = (event) => {
+    setPodezd(event.target.value);
+    console.log(podezd);
+  };
 
   const [floor, setFloor] = React.useState("");
-  const floorChange = (event) => { setFloor(event.target.value); console.log(floor); };
+  const floorChange = (event) => {
+    setFloor(event.target.value);
+    console.log(floor);
+  };
 
   const [korpus, setKorpus] = React.useState("");
-  const korpusChange = (event) => { setKorpus(event.target.value); console.log(korpus); };
+  const korpusChange = (event) => {
+    setKorpus(event.target.value);
+    console.log(korpus);
+  };
 
   const [houseName, setHouseName] = React.useState("");
-  const houseNameChange = (event) => { setHouseName(event.target.value); console.log(houseName); };
+  const houseNameChange = (event) => {
+    setHouseName(event.target.value);
+    console.log(houseName);
+  };
 
   const [additionalInfo, setAdditionalInfo] = React.useState("");
-  const additionalInfoChange = (event) => { setAdditionalInfo(event.target.value); console.log(additionalInfo); };
+  const additionalInfoChange = (event) => {
+    setAdditionalInfo(event.target.value);
+    console.log(additionalInfo);
+  };
 
   const [pred, setPred] = React.useState(false);
-  const predChange = (event) => { setPred(!pred); console.log(pred); };
+  const predChange = (event) => {
+    setPred(!pred);
+    console.log(pred);
+  };
 
   const [predIIN, setPredIIN] = React.useState("");
-  const predIINChange = (event) => { setPredIIN(event.target.value); console.log(predIIN); };
+  const predIINChange = (event) => {
+    setPredIIN(event.target.value);
+    console.log(predIIN);
+  };
 
   const [check1, setCheck1] = React.useState(false);
-  const check1Change = (event) => { setCheck1(!check1); console.log(check1)};
+  const check1Change = (event) => {
+    setCheck1(!check1);
+    console.log(check1);
+  };
 
   const [check2, setCheck2] = React.useState(false);
-  const check2Change = (event) => { setCheck2(!check2); console.log(check2)};
+  const check2Change = (event) => {
+    setCheck2(!check2);
+    console.log(check2);
+  };
 
   const handleSubmit = (event) => {
     if (!(check1 && check2)) return;
 
     console.log("AAAA");
-  }
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles.info}>
-          <p className={styles.intoText}>Здравствуйте Кайрат Нуртас!</p>
+          <p className={styles.intoText}>
+            Здравствуйте {name} {surname}!
+          </p>
         </div>
         <div className={styles.action}>
           <div className={styles.input}>
@@ -334,17 +395,21 @@ const Home = memo(({requestID, orderName, orderPlace, IIN, name, surname, phoneN
                     }}
                   />
                   <br></br>
-                  {pred ? <TextField
-                    id="outlined-basic"
-                    label="ИИН Представителя"
-                    variant="outlined"
-                    value={predIIN}
-                    onChange={predIINChange}
-                    sx={{
-                      marginBottom: "10px",
-                      width: "100%",
-                    }}
-                  /> : <div></div>}
+                  {pred ? (
+                    <TextField
+                      id="outlined-basic"
+                      label="ИИН Представителя"
+                      variant="outlined"
+                      value={predIIN}
+                      onChange={predIINChange}
+                      sx={{
+                        marginBottom: "10px",
+                        width: "100%",
+                      }}
+                    />
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
                 <div>
                   <br></br>
@@ -354,14 +419,21 @@ const Home = memo(({requestID, orderName, orderPlace, IIN, name, surname, phoneN
                     }}
                   >
                     <FormControlLabel
-                      control={<Checkbox checked={check1} onChange={check1Change} />}
+                      control={
+                        <Checkbox checked={check1} onChange={check1Change} />
+                      }
                       sx={{
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                       }}
                     />
-                    <p>- Я принимаю условия <a target="_blank" href="https://egov.kz/cms/kk">публичного договора-оферты</a></p>
+                    <p>
+                      - Я принимаю условия{" "}
+                      <a target="_blank" href="https://egov.kz/cms/kk">
+                        публичного договора-оферты
+                      </a>
+                    </p>
                   </Box>
                   <br></br>
                   <Box
@@ -370,14 +442,22 @@ const Home = memo(({requestID, orderName, orderPlace, IIN, name, surname, phoneN
                     }}
                   >
                     <FormControlLabel
-                      control={<Checkbox checked={check2} onChange={check2Change} />}
+                      control={
+                        <Checkbox checked={check2} onChange={check2Change} />
+                      }
                       sx={{
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                       }}
                     />
-                    <p>- Я ознакомлен и согласен с <a target="_blank" href="https://egov.kz/cms/kk">условиями политики конфиденциальности и персональных данных</a></p>
+                    <p>
+                      - Я ознакомлен и согласен с{" "}
+                      <a target="_blank" href="https://egov.kz/cms/kk">
+                        условиями политики конфиденциальности и персональных
+                        данных
+                      </a>
+                    </p>
                   </Box>
                   <br></br>
                 </div>
@@ -385,9 +465,11 @@ const Home = memo(({requestID, orderName, orderPlace, IIN, name, surname, phoneN
             </div>
           </div>
           <div className={styles.button}>
-            <Button variant="contained" 
-                    sx={{ backgroundColor: "#2E71FC" }}
-                    onClick={handleSubmit}
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "#2E71FC" }}
+              disabled={!(check1 && check2)}
+              onClick={handleSubmit}
             >
               Продолжить
             </Button>
