@@ -2,7 +2,7 @@ import Running from "../../assets/running.gif";
 import { React, useEffect, useState } from "react";
 import { GoogleMap, LoadScript, Polyline, Marker } from "@react-google-maps/api";
 import { decode, encode } from "@googlemaps/polyline-codec";
-import styles from "./Courier.module.css";
+import styles from "./CourierPage.module.css";
 import useWindowSize from "../../hooks/useWindowSize";
 import axios from "axios";
 
@@ -43,12 +43,31 @@ const MyComponent = () => {
   const [width, height] = useWindowSize();
 
   const [response, setResponse] = useState({});
+  const [courierId, setCourierId] = useState(0);
+  const [courierLat, setCourierLat] = useState(0);
+  const [courierLng, setCourierLng] = useState(0);
 
   let origin = "г. Астана, Кабанбай батыр 53";
   let destination = "г. Астана, Хан шатыр";
 
-  let courierLat = 51.1605;
-  let courierLng = 71.4705;
+  const getCoordinates = (position) => {
+    setCourierLat(position.coords.latitude);
+    setCourierLng(position.coords.longitude);
+  }
+
+  const sendCoordinates = async () => {
+    const response = await axios.post(
+      "http://localhost:5000/api/courier/" + courierId + "&" + courierLat + "&" + courierLng,
+    );
+  }
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getCoordinates);
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -58,6 +77,12 @@ const MyComponent = () => {
 
     fetchData();
   }, []);
+
+  
+  getLocation();
+
+  console.log("courierLat: ", courierLat);
+  console.log("courierLng: ", courierLng);
 
   console.log("response: ");
   console.log(response);
