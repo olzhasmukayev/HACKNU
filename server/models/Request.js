@@ -46,6 +46,11 @@ const RequestSchema = new mongoose.Schema({
     ref: "CourierService",
     required: true,
   },
+  tson: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Tson",
+    required: true,
+  },
 });
 
 const Request = mongoose.model("Request", RequestSchema);
