@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Payment.module.css";
 import Button from "@mui/material/Button";
-import { GoogleMap, LoadScript, Polyline, Marker } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  LoadScript,
+  Polyline,
+  Marker,
+} from "@react-google-maps/api";
 import { decode, encode } from "@googlemaps/polyline-codec";
 import TextField from "@mui/material/TextField";
 import { useSearchParams } from "react-router-dom";
@@ -41,7 +46,6 @@ const computeRoutes = async (origin, destination) => {
 };
 
 const Payment = () => {
-
   const [searchParams] = useSearchParams();
   const requestID = searchParams.get("requestID");
   const orderName = searchParams.get("orderName");
@@ -63,13 +67,22 @@ const Payment = () => {
   const additionalInfo = searchParams.get("additionalInfo");
 
   const [name, setName] = React.useState(nameOld);
-  const nameChange = (event) => { setName(event.target.value); console.log(name); };
+  const nameChange = (event) => {
+    setName(event.target.value);
+    console.log(name);
+  };
 
   const [surname, setSurname] = React.useState(surnameOld);
-  const surnameChange = (event) => { setSurname(event.target.value); console.log(surname); };
+  const surnameChange = (event) => {
+    setSurname(event.target.value);
+    console.log(surname);
+  };
 
   const [cardNum, setCardNum] = React.useState("");
-  const cardNumnameChange = (event) => { setCardNum(event.target.value); console.log(cardNum); };
+  const cardNumnameChange = (event) => {
+    setCardNum(event.target.value);
+    console.log(cardNum);
+  };
 
   const [date, setDate] = React.useState("");
   const dateChange = (event) => {
@@ -106,15 +119,22 @@ const Payment = () => {
 
   const [cvv, setCvv] = React.useState("");
   const [tsons, setTsons] = React.useState([]);
-  const cvvChange = (event) => { setCvv(event.target.value); console.log(cvv); };
-  
+  const cvvChange = (event) => {
+    setCvv(event.target.value);
+    console.log(cvv);
+  };
+
+  useEffect(() => {
+    getTson();
+  }, []);
+
   const getTson = async () => {
     const response = await axios.get("http://localhost:6001/tsons/");
-      
+
     console.log(response.data);
-  
+
     setTsons(response.data);
-  }
+  };
 
   const data = {
     requestID: requestID,
@@ -122,9 +142,24 @@ const Payment = () => {
     middleName: surnameOld,
     lastName: surnameOld,
     requestName: orderName,
-    requestAdress: city + " " + street + " " + homeNum + " " + apartment + " " + floor + " " + korpus + " " + houseName + " " + additionalInfo,
+    requestAdress:
+      city +
+      " " +
+      street +
+      " " +
+      homeNum +
+      " " +
+      apartment +
+      " " +
+      floor +
+      " " +
+      korpus +
+      " " +
+      houseName +
+      " " +
+      additionalInfo,
     courierService: post,
-    tson: "643b42e99a60822bc5675621"
+    tson: tson,
   };
 
   const handleSubmit = async () => {
@@ -132,11 +167,9 @@ const Payment = () => {
 
     const response = axios.post("http://localhost:6001/request/create", data, {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     });
-    console.log("LOO");
-    console.log(response.data);
   };
 
   return (
@@ -222,7 +255,11 @@ const Payment = () => {
             </div>
           </div>
           <div className={styles.button}>
-            <Button variant="contained" sx={{ backgroundColor: "#2E71FC" }} onClick={handleSubmit}>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "#2E71FC" }}
+              onClick={handleSubmit}
+            >
               Оплатить 2000 ₸
             </Button>
           </div>
