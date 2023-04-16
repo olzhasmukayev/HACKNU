@@ -1,5 +1,6 @@
 import Courier from "../models/Courier.js";
 import CourierService from "../models/CourierService.js";
+import Request from "../models/Request.js";
 
 export const getCourier = async (req, res) => {
   try {
@@ -38,15 +39,28 @@ export const courierSelectedTask = async (req, res) => {
   try {
     const courierID = req.params.id;
     const { requestID } = req.body;
+    const requests = await Request.find();
+    let reqIDIndex = requests.findIndex((obj) => obj.requestID === requestID);
+    const request = await Request.findById(requests[reqIDIndex]);
+    request.courier = courierID;
+    console.log(request);
     const courier = await Courier.findById(courierID);
     const courierService = await CourierService.findById(
       courier.courierServiceID
     );
     courier.available = false;
     courier.currentRequestId = requestID;
+    const updatedRequest = await Request.findByIdAndUpdate(
+      request._id,
+      request,
+      {
+        new: true,
+      }
+    );
     const updatedCourier = await Courier.findByIdAndUpdate(courierID, courier, {
       new: true,
     });
+
     let reqIndex = courierService.requestPool.findIndex(
       (obj) => obj.requestID === requestID
     );
@@ -58,7 +72,9 @@ export const courierSelectedTask = async (req, res) => {
         new: true,
       }
     );
-    res.status(200).json({ updatedCourier, updatedCourierService });
+    res
+      .status(200)
+      .json({ updatedCourier, updatedCourierService, updatedRequest });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
