@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Payment.module.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -46,7 +46,20 @@ const Payment = () => {
   };
 
   const [cvv, setCvv] = React.useState("");
+  const [tsons, setTsons] = React.useState([]);
   const cvvChange = (event) => { setCvv(event.target.value); console.log(cvv); };
+  
+  useEffect(() => {
+    getTson();
+  }, []);
+
+  const getTson = async () => {
+    const response = await axios.get("http://localhost:6001/tsons/");
+      
+    console.log(response.data);
+  
+    setTsons(response.data);
+  }
 
   const data = {
     requestID: requestID,
@@ -55,7 +68,8 @@ const Payment = () => {
     lastName: surnameOld,
     requestName: orderName,
     requestAdress: city + " " + street + " " + homeNum + " " + apartment + " " + floor + " " + korpus + " " + houseName + " " + additionalInfo,
-    courierService: post
+    courierService: post,
+    tson: tson
   };
 
   const handleSubmit = async () => {
