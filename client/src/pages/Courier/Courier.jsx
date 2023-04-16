@@ -41,15 +41,34 @@ const computeRoutes = async (origin, destination) => {
 };
 
 const MyComponent = () => {
+  let { requestID } = useParams();
+
+  if(requestID == null) {
+    return <div></div>;
+  }
+  
   const [width, height] = useWindowSize();
 
   const [response, setResponse] = useState({});
+  const [origin, setOrigin] = useState("");
 
-  let origin = "г. Астана, Кабанбай батыр 53";
-  let destination = "г. Астана, Хан шатыр";
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get("http://localhost:6001/courier/selected/" + requestID);
+      setRequestID(response.data.id);
+    }
+  }, []);
 
   let courierLat = 51.1605;
-  let courierLng = 71.4705;
+  let courierLng = 71.4705;  
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get("http://localhost:6001/courier/selected/" + requestID);
+      setOrigin(response.data.origin);
+      setDestination(response.data.destination);
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchData() {

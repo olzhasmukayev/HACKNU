@@ -9,7 +9,9 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/Courier" element={<Courier />} />
+        <Route path="/Courier" element={<Courier />}>
+          <Route path=":requestID" element={<Courier />} />
+        </Route>
         <Route path="/Home" element={<Home />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/SMSAuth" element={<SMSAuth />}>

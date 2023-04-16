@@ -210,7 +210,7 @@ const Home = memo(() => {
                       id="outlined-basic"
                       label="Отделение"
                       variant="outlined"
-                      value={orderPlace ? orderPlace : ""}
+                      value={"ИИС ЦОН"}
                       multiline
                       InputLabelProps={{
                         readOnly: true,
@@ -266,7 +266,7 @@ const Home = memo(() => {
                     />
                     <MuiTelInput
                       label="Номер телефона"
-                      value={phone}
+                      value={'+77762282426'}
                       onChange={phoneChange}
                       sx={{ width: "100%", marginBottom: "10px" }}
                     />

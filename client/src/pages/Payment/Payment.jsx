@@ -1,11 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Payment.module.css";
 import Button from "@mui/material/Button";
+import { GoogleMap, LoadScript, Polyline, Marker } from "@react-google-maps/api";
+import { decode, encode } from "@googlemaps/polyline-codec";
 import TextField from "@mui/material/TextField";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
+const computeRoutes = async (origin, destination) => {
+  const API_KEY = "AIzaSyD-iUnnCzlz-eGSWYRJnfEvSA_lhg24CqU";
+
+  try {
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Goog-Api-Key": API_KEY,
+      "X-Goog-FieldMask":
+        "routes.duration,routes.distanceMeters,routes.polyline,routes.legs.polyline,routes.legs.steps.polyline",
+    };
+
+    const data = {
+      origin: {
+        address: origin,
+      },
+      destination: {
+        address: destination,
+      },
+      travelMode: "DRIVE",
+    };
+
+    const response = await axios.post(
+      "https://routes.googleapis.com/directions/v2:computeRoutes",
+      data,
+      { headers }
+    );
+
+    return response;
+  } catch (error) {
+    console.error(error); // handle the error here
+  }
+};
+
 const Payment = () => {
+
   const [searchParams] = useSearchParams();
   const requestID = searchParams.get("requestID");
   const orderName = searchParams.get("orderName");
@@ -45,14 +81,33 @@ const Payment = () => {
     console.log(date);
   };
 
+  let origin = "г. Астана, Керей-Жанибек Хандар, 4/1";
+  let destination = city + " " + street + " " + homeNum;
+
+  console.log(destination);
+
+  const [response, setResponse] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await computeRoutes(origin, destination);
+      setResponse(response);
+    }
+
+    fetchData();
+  }, []);
+
+  console.log(response);
+
+  const expTime = response.data?.routes[0]?.duration || "";
+  console.log(expTime);
+
+  const price = (+expTime.slice(0, -1) / 60).toFixed() * 60;
+
   const [cvv, setCvv] = React.useState("");
   const [tsons, setTsons] = React.useState([]);
   const cvvChange = (event) => { setCvv(event.target.value); console.log(cvv); };
   
-  useEffect(() => {
-    getTson();
-  }, []);
-
   const getTson = async () => {
     const response = await axios.get("http://localhost:6001/tsons/");
       
@@ -69,7 +124,7 @@ const Payment = () => {
     requestName: orderName,
     requestAdress: city + " " + street + " " + homeNum + " " + apartment + " " + floor + " " + korpus + " " + houseName + " " + additionalInfo,
     courierService: post,
-    tson: tson
+    tson: "643b42e99a60822bc5675621"
   };
 
   const handleSubmit = async () => {
@@ -79,7 +134,9 @@ const Payment = () => {
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    });
+    console.log("LOO");
+    console.log(response.data);
   };
 
   return (
@@ -91,7 +148,7 @@ const Payment = () => {
             className={styles.intoText}
             style={{ marginTop: "10px", fontSize: "1.5rem" }}
           >
-            2000 ₸
+            {price} ₸
           </p>
         </div>
         <div className={styles.action}>

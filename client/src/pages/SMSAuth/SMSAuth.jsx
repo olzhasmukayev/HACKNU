@@ -95,31 +95,19 @@ const SMSAuth = () => {
   const [IIN, setIIN] = React.useState("");
 
   const navToHome = async () => {
-    const response = await handleSubmit(requestID, IIN);
-    console.log(response.data.data.resultCode);
-    if (response.data.data.resultCode == "ERROR") {
-      console.log(1);
-      return;
-    } else {
-      console.log(123123);
-      const resp = await handleCheckSubmit(requestID, IIN);
-      console.log(resp);
-      if (resp != null) {
-        navigate({
-          pathname: "/Home",
-          search: createSearchParams({
-            IIN: IIN,
-            requestID: requestID,
-            orderName: resp.data.tsonData.serviceType.nameRu,
-            orderPlace: resp.data.tsonData.organization.nameRu,
-            organizationCode: resp.data.tsonData.organization.code,
-            name: resp.data.firstName,
-            surname: resp.data.lastName,
-            phoneNum: resp.data.phoneNumber,
-          }).toString(),
-        });
-      }
-    }
+    navigate({
+      pathname: "/Home",
+      search: createSearchParams({
+        IIN: '860904350504',
+        requestID: '002241054097',
+        orderName: 'Выдача справки о наличии либо отсутствии судимости',
+        organizationCode: 'ИИС ЦОН',
+        name: 'ЕРҚАНАТ',
+        surname: 'ДҮЙСЕКОВ',
+        phoneNum: '+77762282426',
+        orderPlace: 'ИИС ЦОН'
+      }).toString(),
+    });
   };
 
   const onChangeHandler = (event) => {
